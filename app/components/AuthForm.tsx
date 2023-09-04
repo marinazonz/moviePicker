@@ -8,10 +8,22 @@ import { toast } from "react-hot-toast";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
 import AuthButton from "./ui/AuthButton";
+import { useCallback, useState } from "react";
 
 type Variant = "LOGIN" | "REGISTER";
 
 const AuthForm = () => {
+    const [variant, setVariant] = useState<Variant>("LOGIN");
+    const [isLoading, setIsLoading] = useState(false);
+
+    const toggleVariant = useCallback(() => {
+        if (variant === "LOGIN") {
+            setVariant("REGISTER");
+        } else {
+            setVariant("LOGIN");
+        }
+    }, [variant]);
+
     const {
         register,
         handleSubmit,
@@ -19,10 +31,20 @@ const AuthForm = () => {
     } = useForm<FieldValues>({
         defaultValues: { name: "", email: "", password: "" },
     });
+
     return (
         <div className='mt-5 sm:mx-auto w-full sm:max-w-md'>
             <div className='bg-white rounded-md px-8 py-4 sm:w-full'>
-                <form className='space-y-4 flex flex-col'>
+                <form className='space-y-3 flex flex-col'>
+                    {variant === "REGISTER" && (
+                        <Input
+                            id='name'
+                            label='Name'
+                            register={register}
+                            errors={errors}
+                            disabled={isLoading}
+                        />
+                    )}
                     <Input
                         id='email'
                         type='email'
@@ -37,7 +59,7 @@ const AuthForm = () => {
                         register={register}
                         errors={errors}
                     />
-                    <div className='place-self-center'>
+                    <div className='place-self-center w-full'>
                         <Button type='submit' primary>
                             Log In
                         </Button>
@@ -63,12 +85,16 @@ const AuthForm = () => {
 
                 <div className='flex flex-col gap-1 justify-center items-center text-center text-sm mt-6 px-2 text-gray-500'>
                     <p>Wait a minute!</p>
-                    <div>Dont have an account yet?</div>
+                    <div>
+                        {variant === "LOGIN"
+                            ? "Dont have an account yet?"
+                            : "Already have an account?"}
+                    </div>
                     <div
                         className='underline cursor-pointer'
-                        onClick={() => {}}
+                        onClick={toggleVariant}
                     >
-                        Create an account
+                        {variant === "LOGIN" ? "Create an account" : "Login"}
                     </div>
                 </div>
             </div>
