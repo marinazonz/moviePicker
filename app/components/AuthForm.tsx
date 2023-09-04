@@ -22,7 +22,7 @@ const AuthForm = () => {
     return (
         <div className='mt-5 sm:mx-auto w-full sm:max-w-md'>
             <div className='bg-white rounded-md px-8 py-4 sm:w-full'>
-                <form className='space-y-4'>
+                <form className='space-y-4 flex flex-col'>
                     <Input
                         id='email'
                         type='email'
@@ -37,7 +37,7 @@ const AuthForm = () => {
                         register={register}
                         errors={errors}
                     />
-                    <div>
+                    <div className='place-self-center'>
                         <Button type='submit' primary>
                             Log In
                         </Button>

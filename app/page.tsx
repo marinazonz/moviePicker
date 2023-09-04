@@ -3,8 +3,8 @@ import AuthForm from "./components/AuthForm";
 
 export default function Home() {
     return (
-        <main className='flex flex-col min-h-screen items-center justify-center p-10 text-gray-900'>
-            <div className='sm:mx-auto w-full sm:max-w-md'>
+        <main className='flex flex-col h-screen items-center justify-center py-10 px-3 md:p-10 text-gray-900'>
+            <div className='sm:mx-auto sm:max-w-md'>
                 <Image
                     width='52'
                     height='52'
